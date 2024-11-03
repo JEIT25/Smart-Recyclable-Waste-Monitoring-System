@@ -1,0 +1,98 @@
+.charts-row{
+    display: flex;
+    justify-content: space-between;
+}
+
+.chart-container {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+    min-width: 50%;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#barangayChart {
+    min-width: 45%;
+}
+
+#monthlyChart {
+    min-width: 100%;
+}
+
+#filterForm {
+    display: flex;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    justify-content: left;
+}
+
+.custom-select {
+    position: relative;
+    width: 200px;
+    margin-right: 10px;
+}
+
+/* Select styling */
+.custom-select select {
+    appearance: none; /* Remove default arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+     background-color: rgb(255, 255, 255);
+    color: white;
+    padding: 8px 30px 8px 10px; /* Adjust padding for text and arrow */
+    border: 1px solid #000201;
+    margin-right: 5px;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 15px;
+    font-weight: bold;
+    outline: rgb(255, 255, 255);
+    color: black;
+    margin-right: 20px;
+}
+
+#purok {
+    text-align: center;
+    margin-right: 5px;
+}
+
+/* Arrow styling */
+.custom-select::after {
+    content: '▼';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: black;
+    font-size: 12px;
+    pointer-events: none; /* Allow clicks to go through to select */
+}
+
+#submitBtn {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-right: 10px;
+    color: rgb(0, 0, 0);
+    width: 10%;
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+
+#submitBtn:hover {
+    background-color: #01923c;
+    color: white;
+}
+
+.totalWaste {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 60%;
+    padding: 0.5rem;
+    color: rgb(0, 0, 0);
+}

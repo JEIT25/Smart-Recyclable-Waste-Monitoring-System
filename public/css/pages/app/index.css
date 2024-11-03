@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');/* Reset some default styles */
+* {
+    font-family: "Roboto Condensed", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Navbar styles */
+.navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    background-color: #01923c; /* Dark background color */
+    color: #fff; /* White text color */
+    padding: 10px 20px; /* Padding for the navbar */
+}
+
+/* Container for logo and login button */
+.navbar-container {
+    display: flex; /* Flexbox for layout */
+    justify-content: space-between; /* Space between items */
+    align-items: center; /* Center items vertically */
+}
+
+/* Logo styles */
+.logo {
+    display: flex; /* Flexbox for logo layout */
+    align-items: center; /* Center logo vertically */
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    font-weight: 12px;
+}
+
+.logo-image {
+    height: 50px; /* Set a fixed height for logo */
+    margin-right: 10px; /* Space between logo and text */
+}
+
+/* Login button styles */
+.login {
+    display: flex; /* Flexbox for button layout */
+}
+
+.login-button {
+    font-weight: bold;
+    margin-right: 20px;
+    color: rgb(255, 255, 255);
+    padding: 8px 16px; /* Button padding */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s; /* Transition for hover effect */
+    transition: all 0.3s ease-out;
+}
+
+.login-button:hover {
+    color: #01923c;
+    background-color: #ffffff; /* Darker background on hover */
+}
+
+.sidebar {
+    position: fixed;
+    z-index: 100;
+    top: 4.4rem;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #ffffff; /* Set background color to white */
+    color: #000; /* Change text color to black for better contrast */
+    padding-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+}
+
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+.sidebar ul li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+    color: white;
+    background-color: #01923c;
+    border-radius: 4px;
+}
+
+.main-content {
+    padding: 20px;
+    padding-top: 80px;
+    margin-left: 270px; /* Moves content to the center relative to sidebar width */
+}
+
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+    .navbar-container {
+        flex-direction: column; /* Stack items vertically on small screens */
+        align-items: flex-start; /* Align items to the left */
+    }
+
+    .login {
+        margin-top: 10px; /* Space above the login button */
+    }
+}
