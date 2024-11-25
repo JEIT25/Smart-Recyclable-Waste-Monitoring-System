@@ -4,6 +4,6 @@
 
 @section('main-content')
     <div>
-        wassup my nigga
+        To be modified later
     </div>
 @endsection
