@@ -85,12 +85,51 @@
         </div>
     </div>
 
+    <div class="charts-row">
+        <div class="chart-container">
+            {!! $estimatedWeightLineChart->container() !!} <!-- New chart for estimated weight -->
+        </div>
+    </div>
+
+    <div class="charts-row table">
+        <h1>Fact Waste Collection Data</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Collection Date</th>
+                    <th>Amount Collected</th>
+                    <th>Barangay</th>
+                    <th>Purok</th>
+                    <th>Waste Name</th>
+                    <th>Category Name</th>
+                    <th>Estimated Kilo Weight</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($allData as $data)
+                    <tr>
+                        <td>{{ $data->id }}</td>
+                        <td>{{ $data->collection_date }}</td>
+                        <td>{{ $data->amount_collected }}</td>
+                        <td>{{ $data->barangay }}</td>
+                        <td>{{ $data->purok }}</td>
+                        <td>{{ $data->waste_name }}</td>
+                        <td>{{ $data->category_name }}</td>
+                        <td>{{ $data->calculated_est_weight }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
 
     {{-- Included the LarapexCharts scripts --}}
 @section('other-scripts')
     {{ $barangayChart->script() }}
     {{ $typeCategoryChart->script() }}
     {{ $monthlyTrendChart->script() }}
+    {{ $estimatedWeightLineChart->script() }}
 @endsection
 
 @endsection

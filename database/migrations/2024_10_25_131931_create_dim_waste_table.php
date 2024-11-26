@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('waste_name');
             $table->enum("category_name", ['plastic', 'paper', 'glass', 'metal', 'electronics']);
+            $table->decimal('est_weight');
         });
     }
 

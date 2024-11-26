@@ -104,19 +104,71 @@ class ChartController extends Controller
             ->setHeight(250)
             ->addData('Waste Collected', $monthlyWaste->pluck('total_waste')->toArray());
 
+        // 4. Estimated Weight of Waste by Category (Line Chart with Multiple Lines)
+        $estimatedWeightByCategoryLineQuery = DB::table('fact_waste_collection')
+            ->join('dim_location', 'fact_waste_collection.dim_location_id', '=', 'dim_location.id')
+            ->join('dim_waste', 'fact_waste_collection.dim_waste_id', '=', 'dim_waste.id')
+            ->select(
+                'dim_waste.category_name',
+                DB::raw('SUM(fact_waste_collection.amount_collected * dim_waste.est_weight) as total_est_weight'),
+                DB::raw("DATE_FORMAT(fact_waste_collection.collection_date, '%Y-%m') as month")
+            )
+            ->groupBy('dim_waste.category_name', 'month')
+            ->orderBy('month');
+
+        if ($barangay) {
+            $estimatedWeightByCategoryLineQuery->where('dim_location.barangay', $barangay);
+        }
+        if ($purok) {
+            $estimatedWeightByCategoryLineQuery->where('dim_location.purok', $purok);
+        }
+
+        $estimatedWeightByCategoryLine = $estimatedWeightByCategoryLineQuery->get();
+
+        $categoryLines = $estimatedWeightByCategoryLine->groupBy('category_name');
+
+        $lineChart = (new LarapexChart)->lineChart()
+            ->setTitle('Estimated Kilo Weight of Waste by Category (Monthly)')
+            ->setWidth(1200)
+            ->setHeight(300)
+            ->setXAxis($estimatedWeightByCategoryLine->pluck('month')->unique()->toArray());
+
+        foreach ($categoryLines as $category => $data) {
+            $lineChart->addData($category, $data->pluck('total_est_weight')->toArray());
+        }
+
         // Passing all charts and filtering options to the view
         $barangays = DB::table('dim_location')->distinct()->pluck('barangay');
         $puroks = DB::table('dim_location')->distinct()->pluck('purok');
+
+        $allData = DB::table('fact_waste_collection')
+            ->join('dim_location', 'fact_waste_collection.dim_location_id', '=', 'dim_location.id')
+            ->join('dim_waste', 'fact_waste_collection.dim_waste_id', '=', 'dim_waste.id')
+            ->select(
+                'fact_waste_collection.id',
+                'fact_waste_collection.collection_date',
+                'fact_waste_collection.amount_collected',
+                'dim_location.barangay',
+                'dim_location.purok',
+                'dim_waste.waste_name',
+                'dim_waste.category_name',
+                'dim_waste.est_weight',
+                DB::raw('(fact_waste_collection.amount_collected * dim_waste.est_weight) as calculated_est_weight')
+            )
+            ->get();
+
 
         return view('charts.index', [
             'barangayChart' => $barangayChart,
             'typeCategoryChart' => $typeCategoryChart,
             'monthlyTrendChart' => $monthlyTrendChart,
+            'estimatedWeightLineChart' => $lineChart, // New line chart for estimated weight by category
             'barangays' => $barangays,
             'puroks' => $puroks,
             'selectedBarangay' => $barangay,
             'selectedPurok' => $purok,
-            'totalWaste' => $totalWaste
+            'totalWaste' => $totalWaste,
+            'allData' => $allData
         ]);
     }
 }
