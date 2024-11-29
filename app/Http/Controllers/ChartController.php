@@ -14,6 +14,19 @@ class ChartController extends Controller
         $barangay = $request->input('barangay');
         $purok = $request->input('purok');
 
+        // Color map for consistent chart colors
+        $colorMap = [
+            'plastic' => '#3498db', // Blue
+            'paper' => '#2ecc71', // Green
+            'metal' => '#e74c3c', // Red
+            'glass' => '#f1c40f', // Yellow
+            'electronics' => '#8e44ad', // Purple
+        ];
+
+
+        // Default color if a type/category is not in the map
+        $defaultColor = '#000000'; // Black
+
         // 1. Total Waste Collected by Barangay with optional filtering
         $wasteByBarangayQuery = DB::table('fact_waste_collection')
             ->join('dim_location', 'fact_waste_collection.dim_location_id', '=', 'dim_location.id')
@@ -37,7 +50,9 @@ class ChartController extends Controller
             ->setXAxis($wasteByBarangay->pluck('barangay')->toArray())
             ->setWidth(600)
             ->setHeight(300)
-            ->addData('Waste Collected', $wasteByBarangay->pluck('total_waste')->toArray());
+            ->addData('Waste Collected', $wasteByBarangay->pluck('total_waste')->toArray())
+            ->setColors(array_values($colorMap));
+
 
         // 2. Waste Collection by Type and Category with optional filtering
         $wasteByTypeAndCategoryQuery = DB::table('fact_waste_collection')
@@ -70,6 +85,11 @@ class ChartController extends Controller
             ->setHeight(300)
             ->setXAxis($wasteTypes->toArray());
 
+        // Prepare color mapping for each category
+        $categoryColors = $categories->mapWithKeys(function ($category) use ($colorMap) {
+            return [$category => $colorMap[$category] ?? '#000000']; // Default to black if no color exists
+        })->toArray();
+
         foreach ($categories as $category) {
             $categoryData = $wasteByTypeAndCategory->where('category_name', $category);
             $amounts = $wasteTypes->map(function ($wasteType) use ($categoryData) {
@@ -77,6 +97,10 @@ class ChartController extends Controller
             });
             $typeCategoryChart->addData($category, $amounts->toArray());
         }
+
+        // Apply colors for the categories
+        $typeCategoryChart->setColors(array_values($categoryColors));
+
 
         // 3. Monthly Waste Collection Trend with optional filtering
         $monthlyWasteQuery = DB::table('fact_waste_collection')
@@ -97,7 +121,7 @@ class ChartController extends Controller
 
         $monthlyWaste = $monthlyWasteQuery->get();
 
-        $monthlyTrendChart = (new LarapexChart)->lineChart()
+        $monthlyTrendChart = (new LarapexChart)->areaChart()
             ->setTitle('Monthly Recyclable Waste Collection Trend')
             ->setXAxis($monthlyWaste->pluck('month')->toArray())
             ->setWidth(1200)
@@ -127,7 +151,7 @@ class ChartController extends Controller
 
         $categoryLines = $estimatedWeightByCategoryLine->groupBy('category_name');
 
-        $lineChart = (new LarapexChart)->lineChart()
+        $lineChart = (new LarapexChart)->areaChart()
             ->setTitle('Estimated Kilo Weight of Waste by Category (Monthly)')
             ->setWidth(1200)
             ->setHeight(300)
@@ -137,7 +161,57 @@ class ChartController extends Controller
             $lineChart->addData($category, $data->pluck('total_est_weight')->toArray());
         }
 
-        // Passing all charts and filtering options to the view
+        // Apply consistent colors for each category
+        $lineChart->setColors(
+            $categoryLines->keys()->map(fn($category) => $colorMap[$category] ?? $defaultColor)->toArray()
+        );
+
+        // 5. Estimated Weight by Barangay and Purok
+        $estimatedWeightByBarangayAndPurokQuery = DB::table('fact_waste_collection')
+            ->join('dim_location', 'fact_waste_collection.dim_location_id', '=', 'dim_location.id')
+            ->join('dim_waste', 'fact_waste_collection.dim_waste_id', '=', 'dim_waste.id')
+            ->select(
+                'dim_waste.category_name',
+                DB::raw('SUM(fact_waste_collection.amount_collected * dim_waste.est_weight) as total_est_weight')
+            );
+
+        // Determine grouping and x-axis labels dynamically
+        if ($barangay && $purok) {
+            $xAxisColumn = 'dim_location.purok';
+            $estimatedWeightByBarangayAndPurokQuery->where('dim_location.barangay', $barangay)
+                ->where('dim_location.purok', $purok);
+        } elseif ($barangay) {
+            $xAxisColumn = 'dim_location.purok';
+            $estimatedWeightByBarangayAndPurokQuery->where('dim_location.barangay', $barangay);
+        } else {
+            $xAxisColumn = 'dim_location.barangay';
+        }
+
+        $estimatedWeightByBarangayAndPurokQuery->addSelect(DB::raw("$xAxisColumn as x_axis"))
+            ->groupBy('dim_waste.category_name', 'x_axis')
+            ->orderBy('x_axis');
+
+        $estimatedWeightByBarangayAndPurok = $estimatedWeightByBarangayAndPurokQuery->get();
+
+        $categoryLines1 = $estimatedWeightByBarangayAndPurok->groupBy('category_name');
+
+        // Create Larapex Chart
+        $weightChart = (new LarapexChart)->areaChart()
+            ->setTitle('Estimated Kilo Weight of Waste by Category')
+            ->setWidth(1200)
+            ->setHeight(300)
+            ->setXAxis($estimatedWeightByBarangayAndPurok->pluck('x_axis')->unique()->toArray());
+
+        foreach ($categoryLines1 as $category => $data) {
+            $weightChart->addData($category, $data->pluck('total_est_weight')->toArray());
+        }
+
+        // Apply consistent colors for each category
+        $weightChart->setColors(
+            $categoryLines1->keys()->map(fn($category) => $colorMap[$category] ?? $defaultColor)->toArray()
+        );
+
+
         $barangays = DB::table('dim_location')->distinct()->pluck('barangay');
         $puroks = DB::table('dim_location')->distinct()->pluck('purok');
 
@@ -164,6 +238,7 @@ class ChartController extends Controller
             'monthlyTrendChart' => $monthlyTrendChart,
             'estimatedWeightLineChart' => $lineChart, // New line chart for estimated weight by category
             'barangays' => $barangays,
+            'estimatedWeightByBarangayAndPurokChart' =>$weightChart,
             'puroks' => $puroks,
             'selectedBarangay' => $barangay,
             'selectedPurok' => $purok,

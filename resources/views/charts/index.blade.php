@@ -1,30 +1,3 @@
-{{-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Waste Collection Chart</title>
-
-    <!-- Include the ApexCharts CDN script -->
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
-    <!-- Include Vite script to load your app.js -->
-    @vite(['resources/js/app.js'])
-</head>
-<body>
-@foreach ($charts as $barangay => $chart)
-    <h2>{{ $barangay }}</h2>
-    {!! $chart->container() !!}
-@endforeach
-
-<script src="{{ LarapexChart::cdn() }}"></script>
-@foreach ($charts as $chart)
-    {{ $chart->script() }}
-@endforeach
-
-</body>
-</html> --}}
-
 @extends('layouts.app')
 
 @section('css')
@@ -80,14 +53,20 @@
     </div>
 
     <div class="charts-row">
-        <div class="chart-container" id="monthlyChart">
-            {!! $monthlyTrendChart->container() !!}
+        <div class="chart-container">
+            {!! $estimatedWeightLineChart->container() !!} <!-- New chart for estimated weight -->
         </div>
     </div>
 
     <div class="charts-row">
         <div class="chart-container">
-            {!! $estimatedWeightLineChart->container() !!} <!-- New chart for estimated weight -->
+            {!! $estimatedWeightByBarangayAndPurokChart->container() !!} <!-- New chart for estimated weight -->
+        </div>
+    </div>
+
+    <div class="charts-row">
+        <div class="chart-container" id="monthlyChart">
+            {!! $monthlyTrendChart->container() !!}
         </div>
     </div>
 
@@ -130,6 +109,7 @@
     {{ $typeCategoryChart->script() }}
     {{ $monthlyTrendChart->script() }}
     {{ $estimatedWeightLineChart->script() }}
+    {{ $estimatedWeightByBarangayAndPurokChart->script() }}
 @endsection
 
 @endsection

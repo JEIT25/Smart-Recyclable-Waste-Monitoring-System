@@ -13,7 +13,8 @@ class DimWaste extends Model
 
     protected $fillable = [
         'waste_name',
-        'category_name',
+        'category_name',,
+        'est_weight'
     ];
 
     // Define relationship with FactWasteCollection
