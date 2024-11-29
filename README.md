@@ -1,8 +1,8 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-# Running a Cloned Laravel 11 Project
+# Running a Cloned Smart Recyclable Waste Monitoring system Project
 
-Follow these steps to set up and run a Laravel 11 project after cloning it from GitHub.
+E Follow ni nga mga steps para ma pa run ninyo ang ang project after ninyo ma download
 
 ---
 
@@ -15,9 +15,46 @@ Ensure you have the following installed on your system:
 
 ---
 
-## Step 1: Create new .env file, then copy the .env.example file, found inside the project
+## Step 1: Create new .env file, and configure DATABASE
 
-1. Open your terminal or command prompt.
-2. Run the following command to clone the repository:
+1. Open the the project using VScode
+2. Create new .env file inside project
+3. Look for the .env.example and copy the contents to the newly created .env file
+4. Replace the current configuration of the database inside the .env  with these one:
+    ```bash
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=smart-recyclable-waste-monitoring-system
+    DB_USERNAME=root
+    DB_PASSWORD=
+
+
+## Step 2: Download my sql file, para dinamo mag pa run sa script og naa nay graph
+1.Download this mysql file, link:
+  ```bash
+    
+
+2. Open xampp->phpmyadmin
+3. Import the mysql you downloaded
+
+
+
+## Step 3: Generating key , running MIGRATIONS, and running/serving the system
+
+1. Generate key for .env file, open terminal and run:
    ```bash
-   git clone <repository_url>
+   php artisan key:migrate
+2. Start table migrations, open terminal and run:
+   ```bash
+   php artisan migrate
+3. Serve / Start the system, open terminal and run:
+   ```bash
+   php artisan serve
+4. Open browser and type url:
+   ```bash
+   http://localhost:8000/dashboard
+5. Done!
+
+
+

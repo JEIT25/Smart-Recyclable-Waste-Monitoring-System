@@ -166,51 +166,6 @@ class ChartController extends Controller
             $categoryLines->keys()->map(fn($category) => $colorMap[$category] ?? $defaultColor)->toArray()
         );
 
-        // 5. Estimated Weight by Barangay and Purok
-        $estimatedWeightByBarangayAndPurokQuery = DB::table('fact_waste_collection')
-            ->join('dim_location', 'fact_waste_collection.dim_location_id', '=', 'dim_location.id')
-            ->join('dim_waste', 'fact_waste_collection.dim_waste_id', '=', 'dim_waste.id')
-            ->select(
-                'dim_waste.category_name',
-                DB::raw('SUM(fact_waste_collection.amount_collected * dim_waste.est_weight) as total_est_weight')
-            );
-
-        // Determine grouping and x-axis labels dynamically
-        if ($barangay && $purok) {
-            $xAxisColumn = 'dim_location.purok';
-            $estimatedWeightByBarangayAndPurokQuery->where('dim_location.barangay', $barangay)
-                ->where('dim_location.purok', $purok);
-        } elseif ($barangay) {
-            $xAxisColumn = 'dim_location.purok';
-            $estimatedWeightByBarangayAndPurokQuery->where('dim_location.barangay', $barangay);
-        } else {
-            $xAxisColumn = 'dim_location.barangay';
-        }
-
-        $estimatedWeightByBarangayAndPurokQuery->addSelect(DB::raw("$xAxisColumn as x_axis"))
-            ->groupBy('dim_waste.category_name', 'x_axis')
-            ->orderBy('x_axis');
-
-        $estimatedWeightByBarangayAndPurok = $estimatedWeightByBarangayAndPurokQuery->get();
-
-        $categoryLines1 = $estimatedWeightByBarangayAndPurok->groupBy('category_name');
-
-        // Create Larapex Chart
-        $weightChart = (new LarapexChart)->areaChart()
-            ->setTitle('Estimated Kilo Weight of Waste by Category')
-            ->setWidth(1200)
-            ->setHeight(300)
-            ->setXAxis($estimatedWeightByBarangayAndPurok->pluck('x_axis')->unique()->toArray());
-
-        foreach ($categoryLines1 as $category => $data) {
-            $weightChart->addData($category, $data->pluck('total_est_weight')->toArray());
-        }
-
-        // Apply consistent colors for each category
-        $weightChart->setColors(
-            $categoryLines1->keys()->map(fn($category) => $colorMap[$category] ?? $defaultColor)->toArray()
-        );
-
 
         $barangays = DB::table('dim_location')->distinct()->pluck('barangay');
         $puroks = DB::table('dim_location')->distinct()->pluck('purok');
@@ -238,7 +193,6 @@ class ChartController extends Controller
             'monthlyTrendChart' => $monthlyTrendChart,
             'estimatedWeightLineChart' => $lineChart, // New line chart for estimated weight by category
             'barangays' => $barangays,
-            'estimatedWeightByBarangayAndPurokChart' =>$weightChart,
             'puroks' => $puroks,
             'selectedBarangay' => $barangay,
             'selectedPurok' => $purok,

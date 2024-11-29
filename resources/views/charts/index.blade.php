@@ -59,12 +59,6 @@
     </div>
 
     <div class="charts-row">
-        <div class="chart-container">
-            {!! $estimatedWeightByBarangayAndPurokChart->container() !!} <!-- New chart for estimated weight -->
-        </div>
-    </div>
-
-    <div class="charts-row">
         <div class="chart-container" id="monthlyChart">
             {!! $monthlyTrendChart->container() !!}
         </div>
@@ -109,7 +103,6 @@
     {{ $typeCategoryChart->script() }}
     {{ $monthlyTrendChart->script() }}
     {{ $estimatedWeightLineChart->script() }}
-    {{ $estimatedWeightByBarangayAndPurokChart->script() }}
 @endsection
 
 @endsection
