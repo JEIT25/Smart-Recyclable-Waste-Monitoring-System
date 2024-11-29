@@ -44,7 +44,7 @@ Ensure you have the following installed on your system:
 
 1. Generate key for .env file, open terminal and run:
    ```bash
-   php artisan key:migrate
+   php artisan key:generate
    ```
 2. Start table migrations, open terminal and run:
    ```bash
