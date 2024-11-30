@@ -8,7 +8,7 @@ class CreateDimLocationTable extends Migration
 {
     public function up()
     {
-        Schema::create('dim_location', function (Blueprint $table) {
+        Schema::create('dim_locations', function (Blueprint $table) {
             $table->id(); // Creates 'id' as primary key (BIGINT UNSIGNED by default)
             $table->string('city', 20);
             $table->enum('barangay', [

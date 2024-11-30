@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dim_waste', function (Blueprint $table) {
+        Schema::create('dim_wastes', function (Blueprint $table) {
             $table->id();
             $table->string('waste_name');
             $table->enum("category_name", ['plastic', 'paper', 'glass', 'metal', 'electronics']);

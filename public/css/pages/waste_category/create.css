@@ -1,0 +1,189 @@
+/* Container Settings */
+.container {
+    max-width: 1200px;
+    padding: 20px;
+    color: #28a745;
+}
+
+/* Row Layout with Flexbox */
+.container .row {
+    display: flex;
+    flex-wrap: wrap;  /* Ensure items wrap on smaller screens */
+    width: 100%;
+    gap: 20px;  /* Space between columns */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Form Section Styling */
+.form-section {
+    margin-bottom: 20px;
+    font-size: 17px;
+    padding: 2rem 5rem;
+    border: 1px solid #ddd; /* Border around the form */
+    border-radius: 8px;
+    background-color: #f9f9f9; /* Light background for form */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #333;
+}
+
+/* Form Group Styling */
+.modern-form .form-group {
+    margin-bottom: 15px;
+}
+
+.modern-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 2px;
+    color: #333;
+}
+
+/* Input and Select Fields */
+.modern-form input, .modern-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-top: 8px;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+/* Focus State for Inputs and Selects */
+.modern-form input:focus, .modern-form select:focus {
+    outline: 2px solid #28a745;
+}
+
+/* Button Styling */
+.modern-form .btn-submit {
+    padding: 10px 20px;
+    font-size: 17px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;  /* Make button full-width on small screens */
+}
+
+.modern-form .btn-submit:hover {
+    background-color: #218838;
+}
+
+/* Error Messages */
+.error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 5px;
+}
+
+/* Image Section Styling */
+.image-section img {
+    max-width: 100%; /* Ensure the image doesn't overflow */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Optional: round corners for image */
+}
+
+/* Table Section */
+.table-section {
+    margin-top: 40px;
+}
+
+.table-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #333;
+}
+
+/* Table Styling */
+.modern-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.modern-table th, .modern-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    color: black;
+}
+
+.modern-table th {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.modern-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* General button/link styling */
+.action-button {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Delete button styling */
+.action-delete {
+    background-color: #dc3545; /* Red color */
+    color: white;
+    border: none;
+}
+
+.action-delete:hover {
+    background-color: #c82333; /* Darker red on hover */
+    transform: scale(1.05); /* Slight scaling effect */
+}
+
+/* Edit link styling */
+.action-edit {
+    background-color: transparent; /* No background */
+    color: #28a745; /* Green color */
+    text-decoration: underline;
+    border: none;
+}
+
+.action-edit:hover {
+    color: #218838; /* Darker green on hover */
+    text-decoration: none; /* Remove underline on hover */
+    transform: scale(1.05); /* Slight scaling effect */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .container .row {
+        flex-direction: column;  /* Stack columns on smaller screens */
+    }
+
+    .modern-form .btn-submit {
+        width: auto; /* Button should not be full width on mobile */
+    }
+}
+
+@media (max-width: 576px) {
+    .form-title {
+        font-size: 1.25rem; /* Slightly smaller title on very small screens */
+    }
+
+    .modern-form label {
+        font-size: 0.875rem; /* Smaller label font on small screens */
+    }
+}

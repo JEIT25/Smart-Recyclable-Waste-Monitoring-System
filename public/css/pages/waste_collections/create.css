@@ -1,0 +1,108 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 88vh;
+}
+
+.form-container {
+    display: flex;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 1100px;
+    width: 100%;
+}
+
+/* Image Section */
+.image-section {
+    flex: 1;
+    background-color: #f0f0f0;
+}
+
+.image-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Form Section */
+.form-section {
+    flex: 1;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #01923c;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+input,
+select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    text-transform: capitalize;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #01923c;
+    box-shadow: 0 0 4px rgba(1, 146, 60, 0.5);
+}
+
+/* Button Styles */
+.btn-submit {
+    background-color: #01923c;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #016d2b;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .form-container {
+        flex-direction: column;
+    }
+
+    .image-section {
+        display: none;
+    }
+
+    .form-section {
+        padding: 20px;
+    }
+}

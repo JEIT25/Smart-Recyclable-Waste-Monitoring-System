@@ -53,17 +53,28 @@ a {
 .login-button {
     font-weight: bold;
     margin-right: 20px;
-    color: rgb(255, 255, 255);
-    padding: 8px 16px; /* Button padding */
+    color: #fff; /* White text */
+    background-color:#01923c; /* Green background */
+    padding: 10px 20px; /* More generous padding */
     border-radius: 5px; /* Rounded corners */
-    transition: background-color 0.3s; /* Transition for hover effect */
-    transition: all 0.3s ease-out;
+    border: none; /* Remove border */
+    cursor: pointer; /* Pointer on hover */
+    transition: all 0.3s ease-out; /* Smooth transition effect */
+    text-transform: uppercase; /* Uppercase text for a modern look */
+    font-size: 16px; /* Set a consistent font size */
 }
 
 .login-button:hover {
-    color: #01923c;
-    background-color: #ffffff; /* Darker background on hover */
+    background-color: #ffffff; /* White background on hover */
+    color: #28a745; /* Green text when hovered */
+    transform: scale(1.05); /* Slight scale effect on hover */
 }
+
+.login-button:focus {
+    outline: none; /* Remove the focus outline */
+    box-shadow: 0 0 10px rgba(40, 167, 69, 0.5); /* Add shadow on focus for better accessibility */
+}
+
 
 .sidebar {
     position: fixed;
@@ -112,6 +123,152 @@ a {
     padding-top: 80px;
     margin-left: 270px; /* Moves content to the center relative to sidebar width */
 }
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Success Icon */
+.success-icon {
+    height: 50px;
+    margin-bottom: 15px;
+}
+
+/* Success Text */
+.success-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #28a745;
+    margin-bottom: 20px;
+}
+
+/* Close Button */
+.close-button {
+    background-color: red;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+.close-button:hover {
+    background-color: rgb(192, 6, 6);
+}
+
+.user-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.user-avatar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #28a745;
+}
+
+h2 {
+    font-size: 18px;
+    color: #333;
+    margin-top: 10px;
+}
+
+
+/* Footer Styling */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #1a692d; /* Green background */
+    color: #fff; /* White text */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    height: 60px; /* Set a fixed height for the footer */
+}
+
+/* Footer Container */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/* Left Section: Logo and App Name */
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between logo and text */
+}
+
+.footer-logo-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Circular logo */
+}
+
+.footer-app-name {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Right Section: Copyright */
+.footer-copyright {
+    font-size: 12px;
+    text-align: right;
+}
+
+/* Add padding to the main content to prevent overlap */
+.main-content {
+    padding-bottom: 60px; /* Matches the height of the footer */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .footer-logo,
+    .footer-copyright {
+        text-align: center;
+    }
+}
+
+
+
 
 
 /* Mobile responsive styles */

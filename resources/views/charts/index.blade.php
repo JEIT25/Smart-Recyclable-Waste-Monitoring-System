@@ -38,7 +38,7 @@
 
         <div class="totalWaste">
             <h3>
-                Collected Recyclable Waste : <u>{{ number_format($totalWaste, 0) }}</u>
+                Total Collected Recyclable Waste {{$textFilter}}: <u>{{ number_format($totalWaste, 0) }}</u>
             </h3>
         </div>
     </form>
@@ -55,6 +55,12 @@
     <div class="charts-row">
         <div class="chart-container">
             {!! $estimatedWeightLineChart->container() !!} <!-- New chart for estimated weight -->
+        </div>
+    </div>
+
+    <div class="charts-row">
+        <div class="chart-container">
+            {!! $estimatedWeightByBarangayAndPurokChart->container() !!} <!-- New chart for estimated weight -->
         </div>
     </div>
 
@@ -103,6 +109,7 @@
     {{ $typeCategoryChart->script() }}
     {{ $monthlyTrendChart->script() }}
     {{ $estimatedWeightLineChart->script() }}
+    {{ $estimatedWeightByBarangayAndPurokChart->script() }}
 @endsection
 
 @endsection

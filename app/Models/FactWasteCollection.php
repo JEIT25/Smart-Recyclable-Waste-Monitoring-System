@@ -9,7 +9,10 @@ class FactWasteCollection extends Model
 {
     use HasFactory;
 
-    protected $table = 'fact_waste_collection';
+    // Disable timestamps for this model
+    public $timestamps = false;
+
+    protected $table = 'fact_waste_collections';
 
     protected $fillable = [
         'user_id',

@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class DimLocation extends Model
 {
+    // Disable timestamps for this model
+    public $timestamps = false;
     use HasFactory;
 
-    protected $table = 'dim_location';
+    protected $table = 'dim_locations';
 
     protected $fillable = [
         'city',

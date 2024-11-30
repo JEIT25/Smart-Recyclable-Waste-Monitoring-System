@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('fact_waste_collection', function (Blueprint $table) {
+        Schema::create('fact_waste_collections', function (Blueprint $table) {
             $table->id(); // Creates 'id' as primary key (BIGINT UNSIGNED by default)
 
             // Explicitly define the foreign key for user_id
@@ -19,11 +19,11 @@ return new class extends Migration {
 
             // Explicitly define the foreign key for location_id
             $table->unsignedBigInteger('dim_location_id');
-            $table->foreign('dim_location_id')->references('id')->on('dim_location')->onDelete('cascade');
+            $table->foreign('dim_location_id')->references('id')->on('dim_locations')->onDelete('cascade');
 
             // Explicitly define the foreign key for waste_category_id
             $table->unsignedBigInteger('dim_waste_id');
-            $table->foreign('dim_waste_id')->references('id')->on('dim_waste')->onDelete('cascade');
+            $table->foreign('dim_waste_id')->references('id')->on('dim_wastes')->onDelete('cascade');
 
             // Other columns
             $table->integer('amount_collected');

@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/467473558_3999128883649739_3904109331498328680_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeESgWeygsXi3srXhsG2Fbw77gULT93uIWLuBQtP3e4hYoApIehbTS4LQhZY2F4ZtlMtMu9CCOk8YHo0QudN4l4X&_nc_ohc=sp4U4E1hyYYQ7kNvgFQ33qd&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD1QGY-44rfeWSpWxHE06GQfHtWFS6ntJ-wL2OwnDYf042yQ&oe=677098A2" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://i.ibb.co/NrjJDdJ/landing-page-cover.png" width="400" alt="Laravel Logo"></a></p>
 
 # Running a Cloned Smart Recyclable Waste Monitoring system Project
 
@@ -35,6 +35,8 @@ Ensure you have the following installed on your system:
 1.Download this mysql file, link:
   ```bash
     https://www.mediafire.com/file/y9l1tjlftsv8jux/smart-recyclable-waste-monitoring-system.sql/file
+    OR
+    You can goto the project files, go to folder database -> pre_made_mysql_file -> smart-recyclable-waste-monitoring-system.sql
   ```
 3. Open xampp->phpmyadmin
 4. Import the mysql you downloaded
