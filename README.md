@@ -43,24 +43,27 @@ Ensure you have the following installed on your system:
 
 
 ## Step 3: Generating key , running MIGRATIONS, and running/serving the system
-
-1. Generate key for .env file, open terminal and run:
+1. install composer dependencies run:
+   ```bash
+   composer install
+   ```
+2. Generate key for .env file, open terminal and run:
    ```bash
    php artisan key:generate
    ```
-2. Start table migrations, open terminal and run:
+3. Start table migrations, open terminal and run:
    ```bash
    php artisan migrate
    ```
-3. Serve / Start the system, open terminal and run:
+4. Serve / Start the system, open terminal and run:
    ```bash
    php artisan serve
    ```
-4. Open browser and type url:
+5. Open browser and type url:
    ```bash
    http://localhost:8000/dashboard
    ```
-5. Done! Makita na dapat nimo ang GRAPHS diras dashboards
+6. Done! Makita na dapat nimo ang GRAPHS diras dashboards
 
 
 
