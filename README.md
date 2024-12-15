@@ -30,6 +30,7 @@ Ensure you have the following installed on your system:
     DB_PASSWORD=
 
 
+
 ## Step 2: Download my sql file, para dinamo mag pa run sa script og naa nay graph
 
 1.Download this mysql file, link:
