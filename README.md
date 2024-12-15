@@ -52,15 +52,11 @@ Ensure you have the following installed on your system:
    ```bash
    php artisan key:generate
    ```
-3. Start table migrations, open terminal and run:
-   ```bash
-   php artisan migrate
-   ```
-4. Serve / Start the system, open terminal and run:
+3. Serve / Start the system, open terminal and run:
    ```bash
    php artisan serve
    ```
-5. Open browser and type url:
+4. Open browser and type url:
    ```bash
    http://localhost:8000/login
 
@@ -68,7 +64,7 @@ Ensure you have the following installed on your system:
    email: test@example.com
    password: password
    ```
-6. Done! Makita na dapat nimo ang GRAPHS diras dashboards
+5. Done! Makita na dapat nimo ang GRAPHS diras dashboards
 
 
 
