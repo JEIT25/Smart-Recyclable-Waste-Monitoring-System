@@ -62,7 +62,11 @@ Ensure you have the following installed on your system:
    ```
 5. Open browser and type url:
    ```bash
-   http://localhost:8000/dashboard
+   http://localhost:8000/login
+
+   Login Credentials:
+   email: test@example.com
+   password: password
    ```
 6. Done! Makita na dapat nimo ang GRAPHS diras dashboards
 
