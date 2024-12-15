@@ -16,7 +16,7 @@
             <!-- Right Form -->
             <div class="form-section">
                 <h1>Waste Collection Form</h1>
-                <form action="{{route('fact-waste-collections.store')}}" method="POST">
+                <form action="{{ route('fact-waste-collections.store') }}" method="POST">
                     @csrf
 
                     <!-- City Field (Read-Only) -->
@@ -36,6 +36,9 @@
                                 </option>
                             @endforeach
                         </select>
+                        @error('barangay')
+                            <small class="error-message">{{ $message }}</small>
+                        @enderror
                     </div>
 
                     <!-- Purok Select -->
@@ -49,25 +52,35 @@
                                 </option>
                             @endfor
                         </select>
+                        @error('purok')
+                            <small class="error-message">{{ $message }}</small>
+                        @enderror
                     </div>
 
                     <!-- Waste Name Select -->
                     <div class="form-group">
                         <label for="waste_name">Waste Name & Category</label>
                         <select id="waste_name" name="dim_waste_id">
-                            <option value="" disabled selected>Select Waste & Category</option>
+                            <option value="" disabled {{ old('dim_waste_id') ? '' : 'selected' }}>Select Waste & Category</option>
                             @foreach ($allWasteAndCategory as $waste)
-                                <option value="{{ $waste->id }}">{{ $waste->waste_name }} - {{ $waste->category_name }} category</option>
+                                <option value="{{ $waste->id }}" {{ old('dim_waste_id') == $waste->id ? 'selected' : '' }}>
+                                    {{ $waste->waste_name }} - {{ $waste->category_name }} category
+                                </option>
                             @endforeach
                         </select>
+                        @error('dim_waste_id')
+                            <small class="error-message">{{ $message }}</small>
+                        @enderror
                     </div>
-
 
                     <!-- Amount Collected -->
                     <div class="form-group">
                         <label for="amount_collected">Amount Collected</label>
                         <input type="number" id="amount_collected" name="amount_collected" placeholder="Enter amount"
                             value="{{ old('amount_collected') }}" />
+                        @error('amount_collected')
+                            <small class="error-message">{{ $message }}</small>
+                        @enderror
                     </div>
 
                     <!-- Collection Date -->
@@ -75,6 +88,9 @@
                         <label for="collection_date">Collection Date</label>
                         <input type="date" id="collection_date" name="collection_date"
                             value="{{ old('collection_date') }}" />
+                        @error('collection_date')
+                            <small class="error-message">{{ $message }}</small>
+                        @enderror
                     </div>
 
                     <!-- Submit Button -->

@@ -17,10 +17,10 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 //dashboard routes which shows the charts
-Route::get('/dashboard', [ChartController::class, 'index'])->name('charts.index');
+Route::get('/dashboard', [ChartController::class, 'index'])->name('charts.index')->middleware('auth');
 
 //fact waste collection routes
-Route::resource('fact-waste-collections', FactWasteCollectionController::class)->only('create','store');
+Route::resource('fact-waste-collections', FactWasteCollectionController::class)->only('create','store')->middleware('auth');
 
 //adding new dim_waste ( waste name and category) routes
-Route::resource('/waste-categories', DimWasteController::class)->only('store','create','destroy','edit','update');
+Route::resource('/waste-categories', DimWasteController::class)->only('store','create','destroy','edit','update')->middleware('auth');
